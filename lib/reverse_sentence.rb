@@ -1,59 +1,39 @@
 
 # A method to reverse the words in a sentence, in place.
 # Time complexity: O(n) where n is the length of the string. The pointers are itterating over the length of the string
-# and a constant number of steps occu at each itteration
-# Space complexity: O(n) where n in the size of the longest word in the string. Other than a few constant size variables
-# the only other space used are two variables used to hold a word each, the size depends on the length of the word,
-# which at max is the length of the longest word in the string.
-
-def update_leading_pointer(direction, pointer, my_sentence)
-  if my_sentence[pointer] == " "
-    while my_sentence[pointer] == " "
-      direction == "forward" ? pointer += 1 : pointer -= 1
-    end
-  else
-    while my_sentence[pointer] != " " && pointer >= 0 && pointer <= my_sentence.length
-      direction == "forward" ? pointer += 1 : pointer -= 1
-    end
-  end
-  return pointer
-end
+# and a constant number of steps occur at each itteration
+# Space complexity: O(1) Constant, Same number of constant sized variable are used each loop.
 
 def reverse_sentence(my_sentence)
+  start = Time.now
   return false if !my_sentence
-  first_point = 0
-  second_point = first_point
 
-  fourth_point = my_sentence.length - 1
-  third_point = fourth_point
-
-  second_point = update_leading_pointer("forward", second_point, my_sentence)
-  third_point = update_leading_pointer("backward", third_point, my_sentence)
-
-  word_one = my_sentence[first_point..second_point - 1]
-  word_two = my_sentence[third_point + 1..fourth_point]
-  start = first_point
-  last = fourth_point
-  return my_sentence if second_point > third_point + 1
-
-  while last >= start
-    if second_point - start >= word_two.length
-      word_two.length.times do |shift|
-        my_sentence[start + shift] = word_two[shift]
-      end
-      start += word_two.length
-      fourth_point = third_point
-      third_point = update_leading_pointer("backward", third_point, my_sentence)
-      word_two = my_sentence[third_point + 1..fourth_point]
-    elsif last - third_point >= word_one.length
-      word_one.length.times do |shift|
-        my_sentence[last - shift] = word_one[word_one.length - 1 - shift]
-      end
-      last -= word_one.length
-      first_point = second_point
-      second_point = update_leading_pointer("forward", second_point, my_sentence)
-      word_one = my_sentence[first_point..second_point - 1]
-    end
+  (my_sentence.length / 2).times do |shift|
+    temp = my_sentence[shift]
+    my_sentence[shift] = my_sentence[my_sentence.length - shift - 1]
+    my_sentence[my_sentence.length - shift - 1] = temp
   end
+  my_sentence = reverse_words(my_sentence)
+  finish = Time.now
+  puts finish - start
   return my_sentence
+end
+
+def reverse_words(my_words)
+  return false if !my_words
+  first_pointer = 0
+  while first_pointer < my_words.length
+    first_pointer += 1 while my_words[first_pointer] == " "
+    second_pointer = first_pointer
+    second_pointer += 1 while my_words[second_pointer + 1] != " " && second_pointer < my_words.length - 1
+    word_length = second_pointer - first_pointer + 1
+    (word_length / 2).times do |shift|
+      temp = my_words[first_pointer + shift]
+      my_words[first_pointer + shift] = my_words[second_pointer - shift]
+      my_words[second_pointer - shift] = temp
+    end
+    second_pointer += 2
+    first_pointer = second_pointer
+  end
+  return my_words
 end
