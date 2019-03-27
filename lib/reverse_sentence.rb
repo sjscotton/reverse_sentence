@@ -1,4 +1,4 @@
-require "pry"
+
 # A method to reverse the words in a sentence, in place.
 # Time complexity: O(n) where n is the length of the string. The pointers are itterating over the length of the string
 # and a constant number of steps occu at each itteration
@@ -57,5 +57,3 @@ def reverse_sentence(my_sentence)
   end
   return my_sentence
 end
-
-puts reverse_sentence("this is a sentence")
