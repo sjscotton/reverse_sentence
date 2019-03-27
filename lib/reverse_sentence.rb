@@ -5,7 +5,7 @@
 # Space complexity: O(1) Constant, Same number of constant sized variable are used each loop.
 
 def reverse_sentence(my_sentence)
-  start = Time.now
+
   return false if !my_sentence
 
   (my_sentence.length / 2).times do |shift|
@@ -14,8 +14,6 @@ def reverse_sentence(my_sentence)
     my_sentence[my_sentence.length - shift - 1] = temp
   end
   my_sentence = reverse_words(my_sentence)
-  finish = Time.now
-  puts finish - start
   return my_sentence
 end
 
