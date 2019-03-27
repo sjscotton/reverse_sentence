@@ -13,7 +13,6 @@ def reverse_sentence(my_sentence)
     my_sentence[my_sentence.length - shift - 1] = temp
   end
   my_sentence = reverse_words(my_sentence)
-
   return my_sentence
 end
 
